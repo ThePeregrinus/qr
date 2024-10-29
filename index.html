@@ -48,7 +48,8 @@
         (result) => {
           let baseURL = "https://theperegrinus.github.io/not-working-click/";
           let newURL = `${baseURL}?vin=${encodeURIComponent(result.data)}`;
-          alert(newURL);
+          console.log(newURL);
+          window.open(newURL);
         },
         {
           onDecodeError: (error) => {
