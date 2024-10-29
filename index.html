@@ -49,7 +49,8 @@
           let baseURL = "https://theperegrinus.github.io/not-working-click/";
           let newURL = `${baseURL}?vin=${encodeURIComponent(result.data)}`;
           console.log(newURL);
-          window.open(newURL);
+          isRedirected = confirm("Перейти на проект дополненой реальности?");
+          if (isRedirected) window.open(newURL);
         },
         {
           onDecodeError: (error) => {
