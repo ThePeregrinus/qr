@@ -31,9 +31,7 @@
         var lastResult,
           countResults = 0;
         function onScanSuccess(decodedText, decodedResult) {
-          window.location.href(
-            `https://theperegrinus.github.io/not-working-click/?vin=${decodedResult}`
-          );
+          window.location.href = `https://theperegrinus.github.io/not-working-click/?vin=${decodedResult}`;
         }
 
         const width = window.innerWidth;
