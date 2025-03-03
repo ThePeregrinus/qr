@@ -1,13 +1,69 @@
-<!doctype html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+    <title>Html-Qrcode Demo</title>
+    <body>
+      <div id="qr-reader"></div>
+      <div id="qr-reader-results"></div>
+    </body>
+    <style>
+      #html5-qrcode-button-camera-stop {
+        visibility: hidden;
+        display: none;
+      }
+    </style>
+    <script src="./html5-qrcode.min.js"></script>
+    <script>
+      function docReady(fn) {
+        // see if DOM is already available
+        if (
+          document.readyState === "complete" ||
+          document.readyState === "interactive"
+        ) {
+          // call on next available tick
+          setTimeout(fn, 1);
+        } else {
+          document.addEventListener("DOMContentLoaded", fn);
+        }
+      }
+
+      docReady(function () {
+        var resultContainer = document.getElementById("qr-reader-results");
+        var lastResult,
+          countResults = 0;
+        function onScanSuccess(decodedText, decodedResult) {
+          window.location.href = `https://theperegrinus.github.io/not-working-click/?vin=${decodedText}`;
+        }
+
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const aspectRatio = width / height;
+        let qrboxFunction = function (viewfinderWidth, viewfinderHeight) {
+          let minEdgePercentage = 0.7; // 70%
+          let minEdgeSize = Math.min(viewfinderWidth, viewfinderHeight);
+          let qrboxSize = Math.floor(minEdgeSize * minEdgePercentage);
+          return {
+            width: qrboxSize,
+            height: qrboxSize,
+          };
+        };
+        const formatsToSupport = [Html5QrcodeSupportedFormats.QR_CODE];
+        const config = {
+          fps: 10, // frame per seconds for qr code scanning
+          qrbox: qrboxFunction,
+          videoConstraints: {
+            facingMode: "environment",
+            aspectRatio: aspectRatio,
+          },
+          formatsToSupport,
+        };
+
+        var html5QrcodeScanner = new Html5QrcodeScanner(
+          "qr-reader",
+          config,
+          true
+        );
+        html5QrcodeScanner.render(onScanSuccess);
+      });
+    </script>
   </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
 </html>
