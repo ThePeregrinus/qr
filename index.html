@@ -14,8 +14,10 @@
     <script src="./html5-qrcode.min.js"></script>
     <script>
       function initQR() {
-        const height = window.innerHeight;
-        const width = window.innerWidth;
+        const iOS =
+          /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const width = iOS ? screen.width : window.innerWidth,
+          height = iOS ? screen.height : window.innerHeight;
 
         // LANDSCAPE WIDTH/HEIGHT
         // PORTAIT HEIGHT/WIDTH
