@@ -14,10 +14,8 @@
     <script src="./html5-qrcode.min.js"></script>
     <script>
       function initQR() {
-        const iOS =
-          /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        const width = iOS ? screen.width : window.innerWidth,
-          height = iOS ? screen.height : window.innerHeight;
+        const height = window.innerHeight;
+        const width = window.innerWidth;
 
         // LANDSCAPE WIDTH/HEIGHT
         // PORTAIT HEIGHT/WIDTH
@@ -34,8 +32,8 @@
             const qrboxSize = Math.floor(minEdgeSize * minEdgePercentage);
 
             return {
-              qrboxSize,
-              qrboxSize,
+              width: qrboxSize,
+              height: qrboxSize,
             };
           };
 
